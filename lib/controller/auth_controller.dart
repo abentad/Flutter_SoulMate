@@ -15,7 +15,7 @@ class AuthController extends GetxController {
     if (await _storage.read(key: 'token') != "") {
       _token = await _storage.read(key: 'token');
       var _response = await http.get(
-        Uri.parse('http://10.0.2.2:3000/users/signInWithToken'),
+        Uri.parse('http://userauth.rentoch.com/signInWithToken'),
         headers: {'Authorization': 'Bearer $_token'},
       );
       if (_response.statusCode == 200) {
@@ -37,7 +37,7 @@ class AuthController extends GetxController {
 
   Future<bool> authenticate(String email, String password) async {
     var _response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/users/signIn'),
+      Uri.parse('http://userauth.rentoch.com/users/signIn'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({"email": email, "password": password}),
     );
@@ -54,7 +54,7 @@ class AuthController extends GetxController {
 
   Future<bool> signUpUser(String username, String email, String password) async {
     var _response = await http.post(
-      Uri.parse('http://10.0.2.2:3000/users/signUp'),
+      Uri.parse('http://userauth.rentoch.com/users/signUp'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({"email": email, "password": password, "userName": username}),
     );

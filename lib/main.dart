@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:soulmate/controller/auth_controller.dart';
+import 'package:soulmate/view/authentication/email.dart';
 import 'package:soulmate/view/authentication/email_signup.dart';
 import 'package:soulmate/view/authentication/main_screen.dart';
 import 'package:soulmate/view/authentication/profile_image.dart';
 import 'package:soulmate/view/home.dart';
+import 'package:soulmate/view/root.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,8 +36,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MainScreen(),
+        '/': (context) => const Root(),
+        '/main': (context) => const MainScreen(),
         '/emailSignUp': (context) => const EmailSignUp(),
+        '/email': (context) => const Email(),
         '/home': (context) => const Home(),
         '/profileImage': (context) => const ProfileImage(),
       },

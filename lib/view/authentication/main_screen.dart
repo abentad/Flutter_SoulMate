@@ -28,7 +28,7 @@ class MainScreen extends StatelessWidget {
               ),
               const Spacer(),
               MyMaterialButton(color: primeColor, label: "With Email", onPressed: () => Get.toNamed('/emailSignUp')),
-              SizedBox(height: size.height * 0.1),
+              SizedBox(height: size.height * 0.04),
             ],
           ),
         ),

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soulmate/constants/color_constant.dart';
@@ -7,16 +6,17 @@ import 'package:soulmate/view/components/material_button.dart';
 import 'package:soulmate/view/components/snack_bar.dart';
 import 'package:soulmate/view/components/text_field.dart';
 
-class EmailSignUp extends StatefulWidget {
-  const EmailSignUp({Key? key}) : super(key: key);
+class Email extends StatefulWidget {
+  const Email({Key? key}) : super(key: key);
 
   @override
-  State<EmailSignUp> createState() => _EmailSignUpState();
+  State<Email> createState() => _EmailState();
 }
 
-class _EmailSignUpState extends State<EmailSignUp> {
+class _EmailState extends State<Email> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   bool _isPasswordObsecure = true;
 
@@ -25,7 +25,6 @@ class _EmailSignUpState extends State<EmailSignUp> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      // backgroundColor: Colors.teal,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -35,7 +34,7 @@ class _EmailSignUpState extends State<EmailSignUp> {
               child: Column(
                 children: [
                   SizedBox(height: size.height * 0.05),
-                  const Text('Sign in', style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600, color: accentColor), textAlign: TextAlign.center),
+                  const Text('Sign up', style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.w600, color: accentColor), textAlign: TextAlign.center),
                   SizedBox(height: size.height * 0.05),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -47,6 +46,15 @@ class _EmailSignUpState extends State<EmailSignUp> {
                     child: Column(
                       children: [
                         // SizedBox(height: size.height * 0.1),
+                        SizedBox(height: size.height * 0.02),
+                        MyTextField(
+                            controller: _usernameController,
+                            hasSuffix: false,
+                            isObsecure: false,
+                            hintText: "David",
+                            labelText: "Username",
+                            prefixIcon: Icons.text_fields,
+                            suffixOnPressed: () {}),
                         SizedBox(height: size.height * 0.02),
                         MyTextField(
                             controller: _emailController,
@@ -76,14 +84,14 @@ class _EmailSignUpState extends State<EmailSignUp> {
                   ),
                   SizedBox(height: size.height * 0.05),
                   MyMaterialButton(
-                    label: "Continue",
+                    label: "Sign up",
                     color: accentColor,
                     onPressed: () async {
                       FocusScope.of(context).requestFocus(FocusNode());
-                      if (_emailController.text != "" && _passwordController.text != "") {
-                        bool result = await Get.find<AuthController>().authenticate(_emailController.text, _passwordController.text);
+                      if (_emailController.text != "" && _passwordController.text != "" && _usernameController.text != "") {
+                        bool result = await Get.find<AuthController>().signUpUser(_usernameController.text, _emailController.text, _passwordController.text);
                         if (result == true) {
-                          ScaffoldMessenger.of(context).showSnackBar(myFloatingSnackBar(context, "Success", 4, successColor));
+                          // ScaffoldMessenger.of(context).showSnackBar(myFloatingSnackBar(context, "Success", 4, successColor));
                           Get.offAllNamed('/home');
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(myFloatingSnackBar(context, "Failed", 4, failColor));
@@ -91,23 +99,6 @@ class _EmailSignUpState extends State<EmailSignUp> {
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(myFloatingSnackBar(context, "Empty Field", 4, failColor));
                       }
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Forgot my password',
-                      style: TextStyle(
-                        color: accentColor,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: size.height * 0.05),
-                  MyMaterialButton(
-                    label: "Sign Up",
-                    color: accentColor,
-                    onPressed: () async {
-                      Get.toNamed('/email');
                     },
                   ),
                 ],

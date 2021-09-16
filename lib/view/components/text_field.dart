@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:soulmate/constants/color_constant.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({Key? key, required this.hintText, required this.labelText, required this.controller, required this.isObsecure}) : super(key: key);
+  const MyTextField(
+      {Key? key,
+      required this.hintText,
+      required this.labelText,
+      required this.controller,
+      required this.isObsecure,
+      required this.prefixIcon,
+      required this.suffixOnPressed,
+      required this.hasSuffix})
+      : super(key: key);
 
   final String hintText;
   final String labelText;
   final TextEditingController controller;
   final bool isObsecure;
+  final IconData prefixIcon;
+  final bool hasSuffix;
+  final Function() suffixOnPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +28,16 @@ class MyTextField extends StatelessWidget {
       style: const TextStyle(fontSize: 18.0),
       obscureText: isObsecure,
       decoration: InputDecoration(
+        prefixIcon: Icon(prefixIcon),
         hintText: hintText,
         hintStyle: const TextStyle(color: Colors.grey, fontSize: 16.0),
-        label: Text(labelText, style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16.0)),
+        label: Text(labelText, style: const TextStyle(color: textColor, fontSize: 16.0)),
         contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-        enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-        focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0), borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+        suffixIcon: hasSuffix
+            ? isObsecure
+                ? IconButton(icon: const Icon(Icons.visibility_off), onPressed: suffixOnPressed)
+                : IconButton(icon: const Icon(Icons.visibility), onPressed: suffixOnPressed)
+            : const SizedBox.shrink(),
       ),
     );
   }

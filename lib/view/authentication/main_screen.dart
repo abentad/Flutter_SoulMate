@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:soulmate/constants/color_constant.dart';
 import 'package:soulmate/view/components/material_button.dart';
 
 class MainScreen extends StatelessWidget {
@@ -18,15 +20,14 @@ class MainScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: size.height * 0.1),
-              const Text('SoulMate', style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.w600)),
+              const Text('SoulMate', style: TextStyle(fontSize: 36.0, fontWeight: FontWeight.w600, color: textColor)),
               SizedBox(height: size.height * 0.1),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child:
-                    Text('The Only True Dating App You Need!', style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600, color: Colors.black54), textAlign: TextAlign.center),
+                child: Text('The Only True Dating App You Need!', style: TextStyle(fontSize: 26.0, fontWeight: FontWeight.w600, color: textColor), textAlign: TextAlign.center),
               ),
               const Spacer(),
-              MyMaterialButton(label: "With Email", onPressed: () => Navigator.of(context).pushNamed('/emailSignUp')),
+              MyMaterialButton(color: primeColor, label: "With Email", onPressed: () => Get.toNamed('/emailSignUp')),
               SizedBox(height: size.height * 0.1),
             ],
           ),

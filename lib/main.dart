@@ -20,7 +20,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    Get.config(
+      defaultPopGesture: true,
+      defaultTransition: Transition.fade,
+    );
+    return GetMaterialApp(
+      defaultTransition: Transition.fade,
       debugShowCheckedModeBanner: false,
       title: 'Soulmate',
       theme: ThemeData(
@@ -30,7 +35,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const MainScreen(),
-        '/emailSignUp': (context) => EmailSignUp(),
+        '/emailSignUp': (context) => const EmailSignUp(),
         '/home': (context) => const Home(),
         '/profileImage': (context) => const ProfileImage(),
       },
